@@ -13,7 +13,7 @@
         </div>
       </div>
       <div class="form-row">
-        <div class="form-group col-md-6">
+        <div class="form-group col-md-9">
           <label for="inputStreet">Street</label>
           <input type="text" class="form-control" id="inputStreet" placeholder="Gravin de Merodestraat"
             formControlName="street">
@@ -23,31 +23,42 @@
           <input type="text" class="form-control" id="inputStreetNumber" placeholder="132"
             formControlName="streetNumber">
         </div>
-        <div class="form-group col-md-3">
+      </div>
+      <div class="form-row">
+        <div class="form-group col-md-6">
           <label for="inputCountryCode">Country code</label>
           <input type="text" class="form-control" id="inputCountryCode" placeholder="32" formControlName="countryCode">
           <div *ngIf="deliveryForm.get('countryCode').errors?.LengthOfNumberNotCorrect" class="text-danger">
             The length of the country code is not valid.
           </div>
         </div>
+        <div class="form-group col-md-6">
+          <label for="inputZipcode">Zip code</label>
+          <input type="text" class="form-control" id="inputZipcode" placeholder="2260" formControlName="zipcode">
+          <div *ngIf="deliveryForm.get('zipcode').errors?.required" class="text-danger">
+            The zip code is required.
+          </div>
+          <div *ngIf="deliveryForm.get('zipcode').errors?.pattern" class="text-danger">
+            The zip code is not valid.
+          </div>
+        </div>
       </div>
       <div class="d-inline-flex" id="keepNotifiedForPackageDelivery">
         <label for="inputkeepNotified" class="mr-3">I want to receive updates regarding the package.</label>
-        <input type="checkbox" class="m-auto" id="inputkeepNotified" (click)="updatePackageTrace($event)" formControlName="keepNotified">
+        <input type="checkbox" class="m-auto" id="inputkeepNotified" (click)="updatePackageTrace($event)"
+          formControlName="keepNotified">
       </div>
       <div *ngIf="deliveryForm.get('keepNotified').value === true" id="notifyMe">
         <div class="d-inline-flex" id="notifyMeMedium">
           <label class="form-check-label mr-3">Keep me notified by:</label>
           <div>
             <input type="radio" id="inputEmailMedium" class="m-auto" formControlName="notifyMedium"
-              (click)="updateNotifyMedium(notifyMedium.EMAIL)"
-              [value]="notifyMedium.EMAIL" checked>
+              (click)="updateNotifyMedium(notifyMedium.EMAIL)" [value]="notifyMedium.EMAIL" checked>
             <label class="ml-2 mr-2" for="inputEmailMedium">Email</label>
           </div>
           <div>
             <input type="radio" id="inputPhoneMedium" class="m-auto" formControlName="notifyMedium"
-              (click)="updateNotifyMedium(notifyMedium.PHONE)"
-              [value]="notifyMedium.PHONE">
+              (click)="updateNotifyMedium(notifyMedium.PHONE)" [value]="notifyMedium.PHONE">
             <label class="ml-2 mr-2" for="inputPhoneMedium">Phone</label>
           </div>
         </div>

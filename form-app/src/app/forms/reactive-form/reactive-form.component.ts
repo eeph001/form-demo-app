@@ -24,7 +24,7 @@ export class ReactiveFormComponent implements OnInit {
       email: '',
       street: '',
       streetNumber: '',
-      zipcode: '',
+      zipcode: ['', [Validators.pattern('^[0-9]{4}$'), Validators.required]],
       countryCode: '',
       keepNotified: false,
       notifyMedium: this.notifyMedium.EMAIL,
