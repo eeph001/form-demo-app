@@ -25,6 +25,12 @@ export class ReactiveFormComponent implements OnInit {
   constructor(private fb: FormBuilder) { }
 
   ngOnInit(): void {
+    this.buildReactiveForm();
+    this.instantiateFormControls();
+    this.countryCodeControl.valueChanges.pipe(distinctUntilChanged()).subscribe(() => this.showValidationMessage(this.countryCodeControl));
+  }
+
+  private buildReactiveForm(): void {
     this.deliveryForm = this.fb.group({
       firstName: '',
       lastName: '',
@@ -42,11 +48,13 @@ export class ReactiveFormComponent implements OnInit {
       notifyMedium: this.notifyMedium.EMAIL,
       phoneNumber: '',
     });
+  }
+
+  private instantiateFormControls(): void {
     this.phoneControl = this.deliveryForm.get('phoneNumber');
     this.emailControl = this.deliveryForm.get('email');
     this.backupZipCode = this.deliveryForm.get('backupZipcode');
     this.countryCodeControl = this.deliveryForm.get('countryCode');
-    this.countryCodeControl.valueChanges.pipe(distinctUntilChanged()).subscribe(() => this.showValidationMessage(this.countryCodeControl));
   }
   
   showValidationMessage(control: AbstractControl): void {
