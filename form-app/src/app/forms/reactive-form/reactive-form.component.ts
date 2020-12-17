@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import{​​​​​​​​ distinctUntilChanged }​​​​​​​​from'rxjs/operators';
+import { numberLength } from '../custom-validators/delivery-form-validators';
+
+
+
 import { NotifyMedium } from '../models/customer-model';
 
 @Component({
@@ -15,6 +20,7 @@ export class ReactiveFormComponent implements OnInit {
   public emailControl: AbstractControl;
   public countryCodeControl: AbstractControl;
   public backupZipCode: AbstractControl;
+
 
   constructor(private fb: FormBuilder) { }
 
@@ -39,6 +45,17 @@ export class ReactiveFormComponent implements OnInit {
     this.phoneControl = this.deliveryForm.get('phoneNumber');
     this.emailControl = this.deliveryForm.get('email');
     this.backupZipCode = this.deliveryForm.get('backupZipcode');
+    this.countryCodeControl = this.deliveryForm.get('countryCode');
+    this.countryCodeControl.valueChanges.pipe(distinctUntilChanged()).subscribe(() => this.showValidationMessage(this.countryCodeControl));
+  }
+  
+  showValidationMessage(control: AbstractControl): void {
+    if ((control.touched || control.dirty)) {
+      control.setValidators(numberLength(10, 999));
+    } else {
+      control.clearValidators();
+    }
+    control.updateValueAndValidity();
   }
 
   public saveDeliveryForm(): void {
