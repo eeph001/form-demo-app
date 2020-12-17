@@ -14,6 +14,7 @@ export class ReactiveFormComponent implements OnInit {
   public phoneControl: AbstractControl;
   public emailControl: AbstractControl;
   public countryCodeControl: AbstractControl;
+  public backupZipCode: AbstractControl;
 
   constructor(private fb: FormBuilder) { }
 
@@ -25,6 +26,11 @@ export class ReactiveFormComponent implements OnInit {
       street: '',
       streetNumber: '',
       zipcode: ['', [Validators.pattern('^[0-9]{4}$'), Validators.required]],
+      backupAddres: false,
+      backupStreet: '',
+      backupStreetNumber: '',
+      backupZipcode: [''],
+      extraDeliveryInformation: ['', Validators.maxLength(500)],
       countryCode: '',
       keepNotified: false,
       notifyMedium: this.notifyMedium.EMAIL,
@@ -32,6 +38,7 @@ export class ReactiveFormComponent implements OnInit {
     });
     this.phoneControl = this.deliveryForm.get('phoneNumber');
     this.emailControl = this.deliveryForm.get('email');
+    this.backupZipCode = this.deliveryForm.get('backupZipcode');
   }
 
   public saveDeliveryForm(): void {
@@ -46,6 +53,15 @@ export class ReactiveFormComponent implements OnInit {
       this.clearValidatorsForDeliveryForm();
       this.updateValidatorsForDeliveryForm();
     }
+  }
+
+  public updateValidationForBackupAddress(event: any): void {
+    if (event?.target?.checked) {
+      this.backupZipCode.setValidators([Validators.required, Validators.pattern('^[0-9]{4}$')]);
+    } else {
+      this.backupZipCode.clearValidators();
+    }
+    this.backupZipCode.updateValueAndValidity();
   }
 
   private clearValidatorsForDeliveryForm(): void {
