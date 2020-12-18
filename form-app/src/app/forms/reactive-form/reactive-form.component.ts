@@ -5,7 +5,7 @@ import { numberLength } from '../custom-validators/delivery-form-validators';
 
 
 
-import { NotifyMedium } from '../models/customer-model';
+import { NotifyMedium } from '../../models/customer-model';
 
 @Component({
   selector: 'app-reactive-form',
