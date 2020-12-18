@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { NotifyMedium } from '../models/customer-model';
+import { NotifyMedium } from '../../models/customer-model';
 
 @Component({
   selector: 'app-reactive-form',

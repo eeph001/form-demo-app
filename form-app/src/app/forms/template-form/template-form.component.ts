@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { Customer } from '../models/customer-model';
+import { Customer } from '../../models/customer-model';
 
 @Component({
   selector: 'app-template-form',
